@@ -52,5 +52,5 @@ class Grid:
 				current.get_adjacency( Node.TOP ).set_traversable(True)
 		
 		o = self.get_origin()
-		#o.set_distance_origin()
+		o.set_distance_origin()
 		
