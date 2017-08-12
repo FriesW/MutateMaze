@@ -53,4 +53,60 @@ class Grid:
 		
 		o = self.get_origin()
 		o.set_distance_origin()
+	
+	def printable(self, wall_chr = u"\u2588", node_chr = ' ', connector_chr = ' ',\
+						horizontal_scale = 3):
+		def clean(c):
+			if type(c) != unicode:
+				c = str(c)
+			return c[0] * hs
+		hs = int(horizontal_scale)
+		wc = clean(wall_chr)
+		nc = clean(node_chr)
+		cc = clean(connector_chr)
+		nl = "\n"
+		
+		out = ""
+		current = self.get_origin()
+		line_start = current
+		
+		#Top wall
+		out += wc * (self.xd * 2 + 1) + nl
+		#Iterate down rows
+		for y in range(self.yd):
+			#Iterate horizontall across nodes
+			row1 = ""
+			row2 = ""
+			for x in range(self.xd):
+				#Row - down nodes
+				row1 += nc
+				if current.has_adjacency( Node.RIGHT) and \
+					current.get_adjacency( Node.RIGHT ).is_traversable():
+					row1 += cc
+				else:
+					row1 += wc
+				
+				#Row - between nodes
+				if current.has_node( Node.BOTTOM ):
+					row2 += wc
+					if current.get_adjacency( Node.BOTTOM ).is_traversable():
+						row2 += cc
+					else:
+						row2 += wc
+				
+				if current.has_node( Node.RIGHT ):
+					current = current.get_node( Node.RIGHT )
+			
+			out += wc + row1 + nl
+			
+			if current.has_node( Node.BOTTOM ):
+				line_start = line_start.get_node( Node.BOTTOM )
+				current = line_start
+				
+				out += row2 + wc + nl
+		
+		#Bottom wall
+		out += wc * (self.xd * 2 + 1)
+		return out
+		
 		
