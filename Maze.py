@@ -14,24 +14,22 @@ def make_maze(xd, yd, cycles, seed):
 	candidates = master.get_non_traversable_adjacencys()
 	
 	for cycle in range(cy):
-		#print master.printable()
-		#raw_input()
+		if cycle%1000 == 0:
+			print cycle
+			print master.printable()
+			#raw_input()
 		#Pick and remove an adjacency
 		i = random.randrange(len(candidates))
-		adj = candidates.pop(i)
+		adjo = candidates.pop(i) #Adjacency which is opening
 		
-		ln = adj.get_low_node() #Low node
-		hn = adj.get_high_node() #High node
+		ln = adjo.get_low_node() #Low node
+		hn = adjo.get_high_node() #High node
 		
-		dist_range = hn.get_distance() - ln.get_distance()
+		adjc = hn.get_low_node_adjacency() #Adjacency which is closing
 		
-		ba = hn.get_low_node_adjacency() #Break adjacency
-		for steps in range(random.randrange(dist_range)):
-			ba = ba.get_low_node().get_low_node_adjacency()
-		
-		ba.set_traversable(False)
-		candidates.append(ba)
-		adj.set_traversable(True)
+		adjc.set_traversable(False)
+		candidates.append(adjc)
+		adjo.set_traversable(True)
 		hn.set_distance(ln)
 		
 	return master.printable()
