@@ -54,6 +54,31 @@ class Grid:
 		o = self.get_origin()
 		o.set_distance_origin()
 	
+	def get_non_traversable_adjacencys(self):
+		out = []
+		current = self.get_origin()
+		line_start = current
+		
+		def consider(dir):
+			if current.has_adjacency( dir ):
+				adj = current.get_adjacency( dir )
+				if not adj.is_traversable():
+					out.append(adj)
+		
+		do = True
+		while do:
+			while current.has_node( Node.RIGHT ):
+				consider( Node.RIGHT )
+				consider( Node.BOTTOM )
+				current = current.get_node( Node.RIGHT )
+			consider( Node.BOTTOM )
+			do = line_start.has_node( Node.BOTTOM )
+			if do:
+				line_start = line_start.get_node( Node.BOTTOM )
+				current = line_start
+		
+		return out
+	
 	def printable(self, wall_chr = u"\u2588", node_chr = ' ', connector_chr = ' ',\
 						horizontal_scale = 3):
 		def clean(c):
@@ -80,7 +105,7 @@ class Grid:
 			for x in range(self.xd):
 				#Row - down nodes
 				row1 += nc
-				if current.has_adjacency( Node.RIGHT) and \
+				if current.has_adjacency( Node.RIGHT ) and \
 					current.get_adjacency( Node.RIGHT ).is_traversable():
 					row1 += cc
 				else:
