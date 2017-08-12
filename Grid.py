@@ -3,8 +3,8 @@ from Node import Node
 class Grid:
 	
 	def __init__(self, xd, yd):
-	self.xd = int(xd)
-	self.yd = int(yd)
+		self.xd = int(xd)
+		self.yd = int(yd)
 		if self.xd < 1 or self.yd < 1:
 			raise ValueError("Grid dimensions must be one or greater.")
 		
@@ -39,7 +39,7 @@ class Grid:
 		dir_right = True
 		
 		for y in range(self.yd):
-			for x in range(self.xd):
+			for x in range(self.xd - 1):
 				if dir_right:
 					current = current.get_node( Node.RIGHT )
 					current.get_adjacency( Node.LEFT ).set_traversable(True)

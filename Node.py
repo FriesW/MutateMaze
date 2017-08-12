@@ -33,7 +33,7 @@ class Node:
 	def set_node(self, node, dir):
 		adj = Adjacency(self, node)
 		self.adjacencys[dir] = adj
-		node.adjacencys[__inverse[dir]] = adj
+		node.adjacencys[self.__inverse[dir]] = adj
 	
 	def has_adjacency(self, dir):
 		return self.adjacencys[dir] != None
@@ -42,11 +42,11 @@ class Node:
 		return self.has_adjacency(dir)
 	
 	def get_adjacency(self, dir):
-		if not has_adjacency(dir):
+		if not self.has_adjacency(dir):
 			raise IndexError("Adjacency doesn't exist.")
 		return self.adjacencys[dir]
 	
 	def get_node(self, dir):
-		if not has_node(dir):
+		if not self.has_node(dir):
 			raise IndexError("Node doesn't exist.")
 		return self.adjacencys[dir].get_other_node(self)
