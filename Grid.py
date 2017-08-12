@@ -34,4 +34,23 @@ class Grid:
 	def get_origin(self):
 		return self.top_left
 	
-	
+	def s_pattern(self):
+		current = self.get_origin()
+		dir_right = True
+		
+		for y in range(self.yd):
+			for x in range(self.xd):
+				if dir_right:
+					current = current.get_node( Node.RIGHT )
+					current.get_adjacency( Node.LEFT ).set_traversable(True)
+				else:
+					current = current.get_node( Node.LEFT )
+					current.get_adjacency( Node.RIGHT).set_traversable(True)
+			dir_right = not dir_right
+			if y != self.yd - 1:
+				current = current.get_node( Node.BOTTOM )
+				current.get_adjacency( Node.TOP ).set_traversable(True)
+		
+		o = self.get_origin()
+		o.set_distance_origin()
+		

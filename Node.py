@@ -25,8 +25,10 @@ class Node:
 			if other != src:
 				other.set_distance(self)
 	
-	def set_raw_distance(self, dist):
-		self.distance = dist
+	def set_distance_origin(self):
+		self.distance = 0
+		for adj in self.adjacencys:
+			adj.get_other_node(self).set_distance(self)
 	
 	def set_node(self, node, dir):
 		adj = Adjacency(self, node)
