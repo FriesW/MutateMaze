@@ -62,9 +62,12 @@ class Node:
 			raise IndexError("Node doesn't exist.")
 		return self.adjacencys[dir].get_other_node(self)
 	
-	def get_low_node_adjacency(self):
+	def get_low_adjacency(self):
 		for adj in self.adjacencys:
 			if adj != None and adj.is_traversable():
 				if adj.get_low_node() != self:
 					return adj
-		raise IndexError("No node smaller than this one!")
+		raise IndexError("No node smaller than this one! Distance is " + str(self.get_distance()))
+	
+	def get_low_node(self):
+		return self.get_low_adjacency().get_low_node()
