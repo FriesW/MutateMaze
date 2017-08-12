@@ -20,14 +20,14 @@ class Node:
 	
 	def set_distance(self, src):
 		self.distance = src.get_distance() + 1
-		for adj in self.adjacencys:
+		for adj in self.get_all_adjacencys():
 			other = adj.get_other_node(self)
 			if other != src:
 				other.set_distance(self)
 	
 	def set_distance_origin(self):
 		self.distance = 0
-		for adj in self.adjacencys:
+		for adj in self.get_all_adjacencys():
 			adj.get_other_node(self).set_distance(self)
 	
 	def set_node(self, node, dir):
@@ -40,6 +40,13 @@ class Node:
 	
 	def has_node(self, dir):
 		return self.has_adjacency(dir)
+	
+	def get_all_adjacencys(self):
+		out = []
+		for adj in self.adjacencys:
+			if adj != None:
+				out.append(adj)
+		return out
 	
 	def get_adjacency(self, dir):
 		if not self.has_adjacency(dir):
