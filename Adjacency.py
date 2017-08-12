@@ -21,17 +21,17 @@ class Adjacency:
 		n1d = self.node1.get_distance()
 		n2d = self.node2.get_distance()
 		if n1d > n2d:
-			return node1
+			return self.node1
 		else:
-			return node2
+			return self.node2
 	
 	def get_low_node(self):
 		n1d = self.node1.get_distance()
 		n2d = self.node2.get_distance()
 		if n1d < n2d:
-			return node1
+			return self.node1
 		else:
-			return node2
+			return self.node2
 	
 	def get_other_node(self, node):
 		if node == self.node1:
