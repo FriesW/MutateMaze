@@ -18,6 +18,8 @@ class Node:
 			raise LookupError("Distance has not yet been set.")
 		return self.distance
 	
+	#Alternate approach: continue recursion until distance is correct/what it would be set to
+	#This approach would work with non-standard mazes and prevent runaway recursion
 	def set_distance(self, src):
 		self.distance = src.get_distance() + 1
 		for adj in self.get_all_adjacencys():
