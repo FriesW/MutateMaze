@@ -1,5 +1,6 @@
 from Grid import Grid
 import random
+from pprint import pprint as pp
 
 def make_maze(xd, yd, cycles, seed):
 	xd = int(xd)
@@ -14,7 +15,7 @@ def make_maze(xd, yd, cycles, seed):
 	candidates = master.get_non_traversable_adjacencys()
 	
 	for cycle in range(cy):
-		if cycle%1000 == 0:
+		if cycle%1 == 0:
 			print cycle
 			print master.printable()
 			#raw_input()
@@ -34,9 +35,16 @@ def make_maze(xd, yd, cycles, seed):
 		
 		ln_traceback = traceback(ln) #Adjacencys from high to origin
 		hn_traceback = traceback(hn) #Adjacencys from low to origin
-		
-		#Get only adjacencys in loop via selecting only unique elements
-		#TODO look for efficiencies to be gained
+
+		#Traceback will match at beginning, but eventually diverge
+		#At divergance point, the loop has begun
+		'''
+		loop_start = -1
+		while abs(loop_start) < min(len(ln_traceback),len(hn_traceback)) and \
+			ln_traceback[loop_start] == hn_traceback[loop_start]:
+			loop_start -= 1
+		loop = ln_traceback[:loop_start] + hn_traceback[:loop_start]
+		'''
 		loop = []
 		for adj in ln_traceback:
 			if adj not in hn_traceback:
