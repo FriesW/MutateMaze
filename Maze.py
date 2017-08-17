@@ -33,20 +33,11 @@ def make_maze(xd, yd, cycles, seed):
 		
 		#Traceback will match at beginning, but eventually diverge
 		#At divergance point, the loop has begun
-		'''
 		loop_start = -1
 		while abs(loop_start) < min(len(ln_traceback),len(hn_traceback)) and \
 			ln_traceback[loop_start] == hn_traceback[loop_start]:
 			loop_start -= 1
 		loop = ln_traceback[:loop_start] + hn_traceback[:loop_start]
-		'''
-		loop = []
-		for adj in ln_traceback:
-			if adj not in hn_traceback:
-				loop.append(adj)
-		for adj in hn_traceback:
-			if adj not in ln_traceback:
-				loop.append(adj)
 		
 		adjc = random.choice(loop) #Adjacency which is closing
 		
