@@ -71,16 +71,3 @@ class Node:
 	
 	def get_low_node(self):
 		return self.get_low_adjacency().get_low_node()
-	
-	def print_x_y(self):
-		tx = self
-		x = 0
-		ty = self
-		y = 0
-		while tx.has_node( Node.LEFT ):
-			tx = tx.get_node( Node.LEFT )
-			x += 1
-		while ty.has_node( Node.TOP ):
-			ty = ty.get_node( Node.TOP )
-			y += 1
-		print x, ",", y
