@@ -1,12 +1,12 @@
 from Grid import Grid
 import random
-from pprint import pprint as pp
+from Param_Utils import sanitize_seed
 
 def make_maze(xd, yd, cycles, seed):
 	xd = int(xd)
 	yd = int(yd)
 	cy = int(cycles)
-	#seed = sanitize_seed(seed)
+	seed = sanitize_seed(seed)
 	
 	random.seed(seed)
 	
