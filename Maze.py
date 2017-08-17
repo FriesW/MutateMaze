@@ -35,6 +35,39 @@ def make_maze(xd, yd, cycles, seed):
 		
 		ln_traceback = traceback(ln) #Adjacencys from high to origin
 		hn_traceback = traceback(hn) #Adjacencys from low to origin
+		
+		print "###### TRACEBACK DEBUG #######"
+		print "Origin node:",
+		print master.get_origin(),
+		master.get_origin().print_x_y()
+		print "High node:",
+		print hn,
+		hn.print_x_y()
+		print "Low node:",
+		print ln,
+		ln.print_x_y()
+		
+		print "Low node traceback"
+		pp(ln_traceback)
+		print "High node traceback"
+		pp(hn_traceback)
+		print "Low node traceback nodes"
+		for adj in ln_traceback:
+			print "High:",
+			print adj.get_high_node(),
+			adj.get_high_node().print_x_y()
+			print "Low: ",
+			print adj.get_low_node(),
+			adj.get_low_node().print_x_y()
+		print "High node traceback nodes low side"
+		for adj in hn_traceback:
+			print "High:",
+			print adj.get_high_node(),
+			adj.get_high_node().print_x_y()
+			print "Low: ",
+			print adj.get_low_node(),
+			adj.get_low_node().print_x_y()
+		
 
 		#Traceback will match at beginning, but eventually diverge
 		#At divergance point, the loop has begun
