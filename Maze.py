@@ -28,7 +28,7 @@ def make_maze(xd, yd, cycles, seed):
 		
 		def traceback(src_node):
 			out = []
-			while src_node.get_distance() > 1:
+			while src_node.get_distance() > 0:
 				out.append( src_node.get_low_adjacency() )
 				src_node = src_node.get_low_node()
 			return out
@@ -47,10 +47,10 @@ def make_maze(xd, yd, cycles, seed):
 		print ln,
 		ln.print_x_y()
 		
-		print "Low node traceback"
-		pp(ln_traceback)
-		print "High node traceback"
-		pp(hn_traceback)
+		#print "Low node traceback"
+		#pp(ln_traceback)
+		#print "High node traceback"
+		#pp(hn_traceback)
 		print "Low node traceback nodes"
 		for adj in ln_traceback:
 			print "High:",
