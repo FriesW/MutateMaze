@@ -80,7 +80,7 @@ class Grid:
 		return out
 	
 	def printable(self, wall_chr = u"\u2588", node_chr = ' ', connector_chr = ' ',\
-						horizontal_scale = 3):
+						horizontal_scale = 3, distance_debug = False):
 		def clean(c):
 			if type(c) != unicode:
 				c = str(c)
@@ -104,7 +104,10 @@ class Grid:
 			row2 = ""
 			for x in range(self.xd):
 				#Row - down nodes
-				row1 += nc
+				if distance_debug:
+					row1 += str( current.get_distance() ).zfill(horizontal_scale)
+				else:
+					row1 += nc
 				if current.has_adjacency( Node.RIGHT ) and \
 					current.get_adjacency( Node.RIGHT ).is_traversable():
 					row1 += cc
