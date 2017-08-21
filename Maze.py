@@ -26,6 +26,7 @@ def make_maze(xd, yd, cycles, seed):
 			while src_node.get_distance() > 0:
 				out.append( src_node.get_low_adjacency() )
 				src_node = src_node.get_low_node()
+			out.reverse()
 			return out
 		
 		ln_traceback = traceback(ln) #Adjacencys from high to origin
@@ -33,19 +34,24 @@ def make_maze(xd, yd, cycles, seed):
 		
 		#Traceback will match at beginning, but eventually diverge
 		#At divergance point, the loop has begun
-		loop_start = -1
-		while abs(loop_start) < min(len(ln_traceback),len(hn_traceback)) and \
+		loop_start = 0
+		while loop_start < min(len(ln_traceback),len(hn_traceback)) and \
 			ln_traceback[loop_start] == hn_traceback[loop_start]:
-			loop_start -= 1
-		loop = ln_traceback[:loop_start] + hn_traceback[:loop_start]
+			loop_start += 1
+		loop = ln_traceback[loop_start:] + hn_traceback[loop_start:]
+		#Must use high node traceback - it will always have a node, ln_traceback could be empty
+		adj_dist = hn_traceback[loop_start - 1] #Adjacency to rebuild maze distances from
 		
 		adjc = random.choice(loop) #Adjacency which is closing
 		
 		adjc.set_traversable(False)
 		candidates.append(adjc)
 		adjo.set_traversable(True)
-		#hn.set_distance(ln)
-		master.get_origin().set_distance_origin()
+		
+		if loop_start > 0: #Use adjacency only if not at origin
+			(adj_dist.get_high_node()).set_distance( adj_dist.get_low_node() )
+		else:
+			master.get_origin().set_distance_origin()
 		
 	return master.printable()
 		
