@@ -35,10 +35,6 @@ def encode(xd, yd, sp, seed):
 	l = [__ns(xd), __ns(yd), __ns(sp),__ss(seed)]
 	l = "|".join(l)
 	return __b32enc(l)
-	
-def encode_format(encoded):
-	l = params_decode(encoded)
-	return param_format(l[0], l[1], l[2], l[3])
 
 def param_format(xd, yd, sp, seed):
 	xd = __ns(xd)
